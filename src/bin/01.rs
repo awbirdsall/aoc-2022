@@ -1,26 +1,19 @@
 fn get_food_calories(input: &str) -> Vec<u32> {
-    input.split('\n')
-        .filter_map(|word| word.trim()
-            .parse::<u32>()
-            .ok())
+    input
+        .split('\n')
+        .filter_map(|word| word.trim().parse::<u32>().ok())
         .collect()
 }
 
 fn get_elf_calories(input: &str) -> Vec<u32> {
-    let twice_split: Vec<Vec<u32>> = input.split("\n\n")
-        .map(get_food_calories)
-        .collect();
-    let sums: Vec<u32> = twice_split.iter()
-        .map(|x| x.iter().sum())
-        .collect();
+    let twice_split: Vec<Vec<u32>> = input.split("\n\n").map(get_food_calories).collect();
+    let sums: Vec<u32> = twice_split.iter().map(|x| x.iter().sum()).collect();
     sums
 }
 
-
 pub fn part_one(input: &str) -> Option<u32> {
     let sums: Vec<u32> = get_elf_calories(input);
-    let max_sum = sums.iter()
-        .max();
+    let max_sum = sums.iter().max();
     max_sum.copied()
 }
 
